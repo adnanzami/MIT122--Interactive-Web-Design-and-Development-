@@ -12,7 +12,7 @@ Students in groups of 3 will identify a real-world business problem or opportuni
 1. Sonam
 2. Lina
 3. Manik
-4. Zami
+4. HM Adnan Zami - 987963
 
 
 ## 📋Assignment Requirements 
