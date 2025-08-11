@@ -9,10 +9,8 @@ Students in groups of 3 will identify a real-world business problem or opportuni
 |06/10/25|Presentation|40%|
 
 ### 🥇Group Members:
-1. Tshering Choden - 987807
-2. Lina Getial Triana - 987610
-3. Manik Balami - 983530
-4. HM Adnan Zami - 987963
+1. Lina Getial Triana - 987610
+2. HM Adnan Zami - 987963
 
 
 ## 📋Assignment Requirements 
