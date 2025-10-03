@@ -1,0 +1,243 @@
+/* ---SafePaws — Global Stylesheet----*/
+
+/* ---------- Design tokens (colors, radius, shadows) ---------- */
+:root{
+  --purple:#C8A2C8;   /* header background */
+  --pink:#F8C8DC;     /* accent / hover */
+  --yellow:#FFF5BA;   /* primary call-to-action + highlighted 'Paws' */
+  --blue:#B5EAEA;     /* hero background */
+  --bg:#FFFEFB;       /* page background */
+  --text:#4B4453;     /* main text */
+  --muted:#7a7480;    /* secondary text */
+  --white:#fff;
+
+  --radius:20px;                       /* large rounded corners */
+  --shadow:0 10px 24px rgba(0,0,0,.05);/* soft depth */
+}
+
+/* ----Base & overflow guards---*/
+*,
+*::before,
+*::after{ box-sizing:border-box; }
+
+html, body{
+  width:100%;
+  max-width:100%;
+  overflow-x:hidden; /* hard stop for any accidental overflow */
+}
+
+body{
+  margin:0;
+  font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:var(--text);
+  background:var(--bg);
+  line-height:1.35;
+}
+
+/* Media should never overflow their parent */
+img, svg, video{
+  max-width:100%;
+  height:auto;
+  display:block;
+}
+
+/* Page wrapper: centers content and limits width */
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 22px;
+}
+
+/* =========================================================
+   Header / Navbar
+   ========================================================= */
+.site-header{
+  background:var(--purple);
+  color:#fff;
+  position:sticky; top:0; z-index:10; /* keep header visible on scroll */
+  box-shadow:var(--shadow);
+}
+.nav{
+  display:flex; justify-content:space-between; align-items:center;
+  gap:18px;
+  padding:14px 22px;
+  flex-wrap:wrap; /* prevents overflow on small widths */
+}
+
+/* Brand (text logo: "Safe" white + "Paws" yellow) */
+.brand{
+  display:flex; align-items:center; gap:8px;
+  font-weight:700; font-size:1.8rem;
+  color:#fff; /* 'Safe' stays white */
+}
+.logo-icon{ font-size:1.4rem }             /* 🐾 size */
+.logo-text{ color:#fff; font-weight:700 }
+.logo-text .highlight{ color:var(--yellow) }/* 'Paws' highlighted */
+
+/* Main menu links */
+.menu a{
+  color:#fff; text-decoration:none; margin-left:18px; font-weight:600;
+  display:inline-block; padding:4px 2px;
+}
+.menu a:hover{ text-decoration:underline }
+
+/* =========================================================
+   Hero (2 columns by default: left text + right image)
+   ========================================================= */
+.hero{
+  background:var(--blue);
+  border-radius:var(--radius);
+  padding:34px;
+  margin:26px 0 42px;
+  display:grid;
+  grid-template-columns:1.2fr 0.8fr; /* more space to text/form */
+  gap:28px;
+  align-items:center;
+  box-shadow:var(--shadow);
+  min-width:0; /* allow grid to shrink without overflow */
+}
+.hero h1{
+  font-size:clamp(30px,5vw,52px);
+  margin:0 0 12px;
+  line-height:1.05;
+}
+.hero .tagline{ color:var(--text); margin:0 0 20px }
+
+/* Right column image */
+.hero-right{ min-width:0; }
+.hero-right img{
+  max-width:90%;
+  height:auto;
+  margin:0 auto;
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  object-fit:cover;
+  aspect-ratio:4/3;
+}
+
+/* =========================================================
+   Search bar (vertical stack; inputs never overflow)
+   ========================================================= */
+.searchbar{
+  background:var(--white);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+  display:grid;
+  grid-template-columns:1fr; /* single column layout */
+  gap:14px;
+  padding:20px;
+  width:100%;
+  max-width:100%;
+  min-width:0; /* allow grid item to shrink in hero */
+}
+
+/* Field label + control */
+.field{ min-width:0; }
+.field label{
+  font-size:.8rem;
+  color:var(--muted);
+  display:block;
+  margin-bottom:4px;
+}
+.field input,
+.field select{
+  display:block;
+  width:100%;
+  max-width:100%;
+  height:44px;
+  padding:10px 12px;
+  border:1px solid #ddd;
+  border-radius:12px;
+  font:inherit;
+  background:#fff;
+  outline:none;
+}
+/* Date input space for calendar icon */
+.field input[type="date"]{ padding-right:38px; }
+/* Prevent long placeholder/value from breaking layout */
+.field input,
+.field select{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+/* Full-width submit button */
+.findbtn{
+  width:100%;
+  height:48px;
+  border:none;
+  cursor:pointer;
+  background:var(--yellow);
+  color:var(--text);
+  font-weight:700;
+  border-radius:12px;
+  box-shadow:0 6px 14px rgba(0,0,0,.06);
+  transition:background .2s ease, transform .02s ease;
+}
+.findbtn:hover{ background:var(--pink) }
+.findbtn:active{ transform:translateY(1px) }
+
+/* =========================================================
+   (Optional) Badges / chips
+   ========================================================= */
+.chip{
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:999px;
+  background:var(--blue);
+  color:var(--text);
+  font-size:.8rem;
+  margin:6px 6px 0 0;
+  white-space:nowrap;
+}
+
+/* =========================================================
+   Services page (centered hero + yellow service cards)
+   ========================================================= */
+
+/* Center the hero for the Services page only */
+.hero--center{
+  grid-template-columns:1fr;  /* override 2-col hero */
+  justify-items:center;
+  text-align:center;
+  margin:26px auto 42px;      /* centers the blue block itself */
+}
+.hero--center .hero-desc{
+  max-width:700px;
+  margin:0 auto;
+}
+
+/* Narrower content for readability */
+.services-main{
+  max-width:800px;
+  margin:0 auto;
+}
+.services-main h2{
+  text-align:center;
+  margin-bottom:28px;
+}
+
+/* Yellow service cards */
+.service{
+  background:var(--yellow);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:18px 22px;
+  margin-bottom:16px;
+}
+.service h3{ margin:0 0 6px; }
+
+/* =========================================================
+   View Sitters — compact responsive cards
+   ========================================================= */
+
+.sitters-main .intro{
+  margin-top:6px;
+  color:var(--muted);
+}
+
+/* Responsive grid of smaller cards */
+.sitters-grid{
+  display:
+
