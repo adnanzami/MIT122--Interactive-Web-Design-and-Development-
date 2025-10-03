@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SafePaws – Sitter Profile</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+ 
+</head>
+<body>
+  <!-- ===== NAVBAR ===== -->
+  <header class="site-header">
+    <div class="nav container">
+      <div class="brand">🐾 <span>SafePaws</span></div>
+      <nav class="menu">
+        <a href="index.html">Home</a>
+        <a href="about_us.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="sitters.html">View Sitters</a>
+        <a href="register_sitter.html">Become a Sitter</a>
+        <a href="contact_us.html">Contact Us</a>
+	<a href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="container" style="padding:26px 0 60px">
+    <div id="content" class="profile"></div>
+    <div id="reviews" class="reviews"></div>
+  </main>
+
+  <script>
+    // ===== DEMO DATA (replace with backend later) =====
+    const DB = {
+      1:{ name:"Lina G.", area:"Canberra City", img:"images/sitter1.png", services:["walking","daycare","boarding"], bio:"Caring sitter with 3+ years of experience." },
+      2:{ name:"James P.", area:"Woden",         img:"images/sitter2.png", services:["walking","dropin"], bio:"Dog lover, reliable and punctual." },
+      3:{ name:"Ana R.",   area:"Belconnen",     img:"images/sitter3.png", services:["house-sitting","boarding"], bio:"Patient with anxious pets, cat expert." },
+      4:{ name:"Sam C.",   area:"Gungahlin",     img:"images/sitter4.png", services:["daycare","walking"], bio:"Active sitter, long walks included." }
+    };
+
+    // ===== DEMO REVIEWS (later from database) =====
+    const REVIEWS = {
+      1:[ 
+        {user:"Maria", rating:5, text:"Amazing sitter! My dog was so happy."},
+        {user:"John", rating:4, text:"Reliable and caring, would recommend."}
+      ],
+      2:[
+        {user:"Sarah", rating:5, text:"James is fantastic with dogs, very punctual."}
+      ],
+      3:[
+        {user:"Paul", rating:4, text:"Ana took great care of my anxious cat."}
+      ],
+      4:[
+        {user:"Emily", rating:5, text:"Sam gave long walks, my dog loved it!"}
+      ]
+    };
+
+    // ===== Get sitter ID from URL =====
+    const id = new URLSearchParams(location.search).get('id');
+    const s = DB[id];
+
+    // Profile container
+    const $c = document.getElementById('content');
+    const $r = document.getElementById('reviews');
+
+    if(!s){
+      $c.innerHTML = "<p>Unknown sitter.</p>";
+    } else {
+      // Render sitter details
+      $c.innerHTML = `
+        <div><img src="${s.img}" alt="${s.name}"></div>
+        <div>
+          <h1>${s.name}</h1>
+          <p><strong>Area:</strong> ${s.area}</p>
+          <p>${s.bio}</p>
+          <div style="margin-top:8px">
+            ${s.services.map(x=>`<span class="chip">${x}</span>`).join('')}
+          </div>
+          <a class="btn" href="book.html?sitter_id=${id}">Book this sitter</a>
+        </div>
+      `;
+
+      // Render reviews
+      const reviews = REVIEWS[id] || [];
+      if(reviews.length === 0){
+        $r.innerHTML = `<h2>Reviews</h2><p>No reviews yet.</p>`;
+      } else {
+        $r.innerHTML = `<h2>Reviews</h2>` + reviews.map(rv => `
+          <div class="review">
+            <div class="stars">${"★".repeat(rv.rating)}${"☆".repeat(5-rv.rating)}</div>
+            <p><strong>${rv.user}:</strong> ${rv.text}</p>
+          </div>
+        `).join('');
+      }
+    }
+  </script>
+</body>
+</html>
