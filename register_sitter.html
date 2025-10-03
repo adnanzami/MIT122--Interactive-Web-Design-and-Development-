@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SafePaws – Become a Sitter</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="site-header">
+    <div class="nav container">
+      <div class="brand">🐾 <span>SafePaws</span></div>
+      <nav class="menu">
+        <a href="index.html">Home</a>
+        <a href="about_us.html">About Us</a>
+	<a href="services.html">Services</a>
+        <a href="sitters.html">View Sitters</a>
+        <a href="register_sitter.html">Become a Sitter</a>
+        <a href="contact_us.html">Contact Us</a>
+	<a href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="container" style="padding:28px 0 60px">
+    <h1>Become a Sitter</h1>
+    <p>Fill out the form below to offer your pet care services.</p>
+
+    <!-- Registration form -->
+    <form>
+      <label>Full Name</label><br>
+      <input type="text" name="name" required><br><br>
+
+      <label>Email</label><br>
+      <input type="email" name="email" required><br><br>
+
+      <label>Phone</label><br>
+      <input type="tel" name="phone" required><br><br>
+
+      <label>City / Area</label><br>
+      <input type="text" name="city" required><br><br>
+
+      <label>Services Offered</label><br>
+      <select multiple name="services">
+        <option>Dog Walking</option>
+        <option>Dog Boarding</option>
+        <option>House Sitting</option>
+        <option>Day Care</option>
+        <option>Drop-in Visits</option>
+      </select><br><br>
+
+      <label>Short Bio</label><br>
+      <textarea name="bio" rows="4"></textarea><br><br>
+
+      <button class="findbtn" type="submit">Submit Application</button>
+    </form>
+  </main>
+</body>
+</html>
+

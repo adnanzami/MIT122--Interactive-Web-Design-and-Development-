@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SafePaws – View Sitters</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- ===== HEADER / NAVIGATION BAR ===== -->
+  <header class="site-header">
+    <div class="nav container">
+      <div class="brand">🐾 <span>SafePaws</span></div>
+      <nav class="menu" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="about_us.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="sitters.html" aria-current="page">View Sitters</a>
+        <a href="register_sitter.html">Become a Sitter</a>
+        <a href="contact_us.html">Contact Us</a>
+        <a href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT AREA-->
+  <main class="container sitters-main" style="padding:28px 0 60px">
+    <h1>Available Sitters</h1>
+    <p class="intro">Browse trusted sitters and open their profiles to book.</p>
+
+    <!-- Smaller sitter cards in a responsive grid -->
+    <div class="grid sitters-grid" id="list">
+
+      <!-- Sitter card -->
+      <article class="card sitter-card">
+        <img class="thumb" src="images/sitter1.png" alt="Profile photo of Lina G." />
+        <h3 class="sitter-name">Lina G.</h3>
+        <p class="sitter-meta">Canberra City • ⭐ 4.9</p>
+        <p class="sitter-tags">
+          <span class="chip">Walking</span>
+          <span class="chip">Daycare</span>
+          <span class="chip">Boarding</span>
+        </p>
+        <a class="btn btn-small" href="sitter_profile.html?id=1">View profile</a>
+      </article>
+
+      <!-- Sitter card -->
+      <article class="card sitter-card">
+        <img class="thumb" src="images/sitter2.png" alt="Profile photo of James P." />
+        <h3 class="sitter-name">James P.</h3>
+        <p class="sitter-meta">Woden • ⭐ 4.7</p>
+        <p class="sitter-tags">
+          <span class="chip">Walking</span>
+          <span class="chip">Drop-in</span>
+        </p>
+        <a class="btn btn-small" href="sitter_profile.html?id=2">View profile</a>
+      </article>
+
+      <!-- Sitter card -->
+      <article class="card sitter-card">
+        <img class="thumb" src="images/sitter3.png" alt="Profile photo of Ana R." />
+        <h3 class="sitter-name">Ana R.</h3>
+        <p class="sitter-meta">Belconnen • ⭐ 4.8</p>
+        <p class="sitter-tags">
+          <span class="chip">House Sitting</span>
+          <span class="chip">Boarding</span>
+        </p>
+        <a class="btn btn-small" href="sitter_profile.html?id=3">View profile</a>
+      </article>
+
+    </div>
+  </main>
+</body>
+</html>
