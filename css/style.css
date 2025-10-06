@@ -1,0 +1,114 @@
+/* --- SafePaws — Optimized Global Stylesheet --- */
+:root {
+  --purple:#C8A2C8;
+  --pink:#F8C8DC;
+  --yellow:#FFF5BA;
+  --blue:#B5EAEA;
+  --bg:#FFFEFB;
+  --text:#4B4453;
+  --muted:#7a7480;
+  --white:#fff;
+  --radius:20px;
+  --shadow:0 10px 24px rgba(0,0,0,.05);
+}
+
+*,
+*::before,
+*::after { box-sizing:border-box; }
+
+body {
+  margin:0;
+  font-family:Poppins,sans-serif;
+  color:var(--text);
+  background:var(--bg);
+  line-height:1.5;
+}
+
+img, video, svg { max-width:100%; height:auto; display:block; }
+
+.container { max-width:1100px; margin:0 auto; padding:0 22px; }
+
+/* Header/Navbar */
+.site-header {
+  background:var(--purple);
+  color:#fff;
+  position:sticky;
+  top:0;
+  z-index:10;
+  box-shadow:var(--shadow);
+}
+.nav {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  padding:14px 22px;
+  gap:18px;
+}
+.brand { font-weight:700; font-size:1.8rem; display:flex; align-items:center; gap:8px; }
+.logo-icon { font-size:1.4rem; }
+.logo-text .highlight { color:var(--yellow); }
+.menu a { color:#fff; text-decoration:none; font-weight:600; margin-left:18px; padding:4px 2px; }
+.menu a:hover { text-decoration:underline; }
+
+/* Buttons */
+.btn, .btn-primary, .findbtn, .btn-small {
+  display:inline-block;
+  font-weight:700;
+  text-align:center;
+  border:none;
+  cursor:pointer;
+  border-radius:12px;
+  transition:all .2s ease;
+}
+.findbtn, .btn-primary { background:var(--yellow); color:var(--text); padding:12px 20px; }
+.findbtn:hover, .btn-primary:hover { background:var(--pink); }
+.btn-small { background:var(--purple); color:#fff; padding:6px 12px; font-size:.85rem; text-decoration:none; }
+.btn-small:hover { opacity:.85; }
+
+/* Hero */
+.hero { background:var(--blue); border-radius:var(--radius); padding:34px; display:grid; grid-template-columns:1.2fr 0.8fr; gap:28px; align-items:center; box-shadow:var(--shadow); }
+.hero h1 { font-size:clamp(30px,5vw,52px); margin:0 0 12px; line-height:1.05; }
+.hero .tagline { margin:0 0 20px; color:var(--text); }
+.hero-right img { border-radius:16px; box-shadow:var(--shadow); aspect-ratio:4/3; object-fit:cover; }
+
+/* Forms */
+form { margin-top:16px; }
+form label { display:block; margin-top:12px; font-weight:600; }
+form input, form select, form textarea {
+  width:100%; padding:10px
+}
+
+  /* =========================
+   Form Error Messages
+   ========================= */
+.error {
+  color: #e74c3c; /* bright red for errors */
+  background-color: #fdecea; /* soft red background */
+  border: 1px solid #f5c6cb;
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+  animation: shake 0.3s ease-in-out;
+}
+
+/* Optional shake animation for attention */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+/* Style for success messages (if needed later) */
+.success {
+  color: #27ae60;
+  background-color: #eafaf1;
+  border: 1px solid #a8e6a3;
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
