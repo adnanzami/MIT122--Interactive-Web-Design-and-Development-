@@ -1,33 +1,123 @@
-# MIT 122 - Interactive Web Design & Dev. Assignment
+# SafePaws – Local Setup Guide
 
-Students in groups of 3 will identify a real-world business problem or opportunity that can be addressed by a web-based information system.
+This guide will help you set up the **SafePaws Pet Sitting Website** on your local machine using **WAMP** and **MySQL**.
 
-## 🕰️Timeline 
-|Date|Submission|Marks|
-|----|----------|-----|
-|11/08/25|Project Proposal|20%|
-|06/10/25|Presentation|40%|
+---
 
-### 🥇Group Members:
-1. Lina Getial Triana - 987610
-2. HM Adnan Zami - 987963
+## Prerequisites
 
+* **Windows OS**
+* **WAMP Server** ([https://www.wampserver.com/](https://www.wampserver.com/)) installed
+* Modern browser (Chrome, Edge, Firefox)
+* Basic knowledge of PHP and MySQL
 
-## 📋Assignment Requirements 
-* Each group must identify a small real-world problem or opportunity that can be addressed by developing a web-information system
-* Your web-information system must have a **minimum of 5 maximum of 8 webpages** developed using **HTML5, CSS3, and JavaScript**. 
-* It must use a database with a minimum of 3 tables.
-* Submission should be including a Github public repository link
+---
 
-## 🔰Project Proposal - Due 8 August 2025
-Students will write a short report (500-700 words), Explaining the project, identifying, and justifying the development approach, and the tools to be used in the group project. And A PowerPoint presentation in Class.
+## 1. Start WAMP Server
 
-#### Resources
-•	What Are Information Systems? [A Dummies Guide]:  https://armanitalks.com/what-are-information-systems-a-dummies-guide/  
-•	Fundamentals of Information Systems: https://sites.radford.edu/~mhtay/ITEC110/Fundamental_Info_Sys/Lecture/ch01_5e.pdf  
-•	How to build a simple PHP website: https://www.makeuseof.com/tag/build-simple-php-website/  
-•	Learning-Web-App-Development by Semmy Purewal : https://app.box.com/s/zxe00foel0yl7ca056ivsgq4826oialw  
-•	Fundamentals of Database systems https://app.box.com/s/kq535i1qdn1kgmu2a8rg8cofq9upfaxe
+1. Launch **WAMP** and start all services (Apache + MySQL).
+2. Ensure the WAMP icon in the system tray is **green**, indicating services are running.
 
-## 📊Presentation - Due 6 October 2025
+---
 
+## 2. Create the Database
+
+1. Open **phpMyAdmin**: [http://localhost/phpmyadmin](http://localhost/phpmyadmin)
+2. Click **Import**, choose the file `sql/safepaws.sql` .
+3. Click Import to import SQL tables
+
+---
+
+## 3. Place Project in WAMP’s `www` Directory
+
+1. Copy the entire **SafePaws project folder** to:
+
+```
+C:\wamp64\www\safepaws
+```
+
+2. Folder structure should look like:
+
+```
+safepaws/
+ ├─ css/
+ ├─ images/
+ ├─ index.php
+ ├─ about_us.php
+ ├─ add_review.php
+ ├─ book.php
+ ├─ bookings.php
+ ├─ check_login.php
+ ├─ contact_us.php
+ ├─ dashboard.php
+ ├─ header.php
+ ├─ logout.php
+ ├─ save_booking.php
+ ├─ save_sitter.php
+ ├─ login.php
+ ├─ services.php
+ ├─ sitters.php
+ ├─ register_owner.php
+ ├─ register_sitter.php
+ ├─ sitter_profile.php
+ └─ config.php
+```
+
+---
+
+## 4. Configure `config.php`
+
+Create a `config.php` file to connect to MySQL:
+
+```php
+<?php
+$host = 'localhost';
+$db   = 'safepaws';
+$user = 'root';         // default WAMP MySQL user
+$pass = '';             // default WAMP MySQL password is empty
+$charset = 'utf8mb4';
+
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+$options = [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+];
+
+try {
+    $pdo = new PDO($dsn, $user, $pass, $options);
+} catch (PDOException $e) {
+    echo "Database connection failed: " . $e->getMessage();
+    exit;
+}
+?>
+```
+
+---
+
+## 5. Launch the Website
+
+1. Open a browser and go to:
+
+```
+http://localhost/safepaws/index.html
+```
+
+2. For PHP pages, use URLs like:
+
+```
+http://localhost/safepaws/login.php
+http://localhost/safepaws/sitter_profile.php?id=1
+```
+
+---
+
+## 6. Notes
+
+* All dynamic pages (`login.php`, `register_sitter.php`, `sitter_profile.php`, `book.php`, etc.) require a **running WAMP server**.
+* Ensure the database name and credentials in `config.php` match your phpMyAdmin setup.
+* Passwords in the database are hashed using `password_hash()` for security.
+* Use `session_start()` for managing user logins.
+
+---
+
+This README provides all steps to get **SafePaws** running locally with WAMP.
