@@ -2,17 +2,14 @@
 session_start();
 require 'config.php';
 
-// Redirect to login if not logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
 }
 
-// Get user info from session
 $user_id = $_SESSION['user_id'];
-$user_type = $_SESSION['user_type']; // 'sitter' or 'booker'
+$user_type = $_SESSION['user_type'];
 $user_name = $_SESSION['user_name'];
-
 ?>
 
 <!DOCTYPE html>
@@ -24,19 +21,10 @@ $user_name = $_SESSION['user_name'];
 </head>
 <body>
 
-<header class="site-header">
-  <div class="nav container">
-    <div class="brand">🐾 <span>SafePaws</span></div>
-    <nav class="menu">
-      <a href="index.php">Home</a>
-      <a href="dashboard.php">Dashboard</a>
-      <a href="logout.php">Logout</a>
-    </nav>
-  </div>
-</header>
+<?php include 'header.php'; ?>
 
 <main class="container" style="padding:28px 0 60px">
-<h1>Welcome, <?php echo htmlspecialchars($user_name); ?>!</h1>
+<h1>Welcome, <?= htmlspecialchars($user_name) ?>!</h1>
 
 <?php if ($user_type === 'sitter'): ?>
     <h2>Your Bookings</h2>
@@ -47,18 +35,18 @@ $user_name = $_SESSION['user_name'];
         <thead>
             <tr>
                 <th>Owner Name</th>
-                <th>Pet Name / Notes</th>
+                <th>Notes</th>
                 <th>Date</th>
                 <th>Status</th>
             </tr>
         </thead>
         <tbody>
         <?php
-        $stmt = $pdo->prepare("SELECT b.*, u.name AS owner_name FROM bookings b 
-                               JOIN bookers u ON b.booker_id = u.id 
-                               WHERE b.sitter_id = ? ORDER BY b.date ASC");
+        // Fetch bookings for this sitter only
+        $stmt = $pdo->prepare("SELECT * FROM bookings WHERE sitter_id = ? ORDER BY date ASC");
         $stmt->execute([$user_id]);
         $bookings = $stmt->fetchAll();
+
         if (!$bookings) {
             echo "<tr><td colspan='4'>No bookings yet.</td></tr>";
         } else {
@@ -85,18 +73,22 @@ $user_name = $_SESSION['user_name'];
         <thead>
             <tr>
                 <th>Sitter Name</th>
-                <th>Pet Name / Notes</th>
+                <th>Notes</th>
                 <th>Date</th>
                 <th>Status</th>
             </tr>
         </thead>
         <tbody>
         <?php
-        $stmt = $pdo->prepare("SELECT b.*, s.name AS sitter_name FROM bookings b 
-                               JOIN sitters s ON b.sitter_id = s.id 
-                               WHERE b.booker_id = ? ORDER BY b.date ASC");
-        $stmt->execute([$user_id]);
+        $stmt = $pdo->prepare("SELECT b.*, s.name AS sitter_name FROM bookings b
+                               JOIN sitters s ON b.sitter_id = s.id
+                               WHERE b.owner_email = ?
+                               ORDER BY b.date ASC");
+        // For booker, we use the email stored in session
+        $owner_email = $_SESSION['user_email'] ?? '';
+        $stmt->execute([$owner_email]);
         $bookings = $stmt->fetchAll();
+
         if (!$bookings) {
             echo "<tr><td colspan='4'>No bookings yet.</td></tr>";
         } else {
@@ -116,5 +108,6 @@ $user_name = $_SESSION['user_name'];
 <?php endif; ?>
 
 </main>
+<?php include 'footer.php'; ?>
 </body>
 </html>

@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p class="error" style="color:red;"><?php echo $error; ?></p>
 <?php endif; ?>
 
-<form method="post">
+<form action="check_login.php" method="post">
     <label>Email</label>
     <input type="email" name="email" required>
 
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <input type="password" name="password" required>
 
     <label>Login as:</label>
-    <select name="type">
+    <select name="user_type"> 
         <option value="sitter">Sitter</option>
         <option value="booker">Pet Owner</option>
     </select>
@@ -67,7 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </form>
 
+
 <p>Don't have an account? <a href="register_sitter.php">Register as Sitter</a> or <a href="register_owner.php">Register as Pet Owner</a></p>
 </main>
+<?php include 'footer.php'; ?>
 </body>
 </html>

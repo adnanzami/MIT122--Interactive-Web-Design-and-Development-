@@ -1,8 +1,8 @@
 <?php
-$host = '127.0.0.1:3308';      // your MySQL host
-$db   = 'safepaws';       // your database name
-$user = 'root';           // your MySQL username
-$pass = '';               // your MySQL password
+$host = '127.0.0.1:3308';      //  MySQL host
+$db   = 'safepaws';       //  database name
+$user = 'root';           //  MySQL username
+$pass = '';               //  MySQL password
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

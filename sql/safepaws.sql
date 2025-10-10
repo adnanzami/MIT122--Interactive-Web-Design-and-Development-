@@ -17,15 +17,19 @@ CREATE TABLE sitters (
 
 -- Table: bookings
 CREATE TABLE bookings (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  sitter_id INT NOT NULL,
-  owner_name VARCHAR(100) NOT NULL,
-  owner_email VARCHAR(100) NOT NULL,
-  date DATE NOT NULL,
-  notes TEXT,
-  status ENUM('Pending','Confirmed','Declined') DEFAULT 'Pending',
-  FOREIGN KEY (sitter_id) REFERENCES sitters(id) ON DELETE CASCADE
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    sitter_id INT NOT NULL,
+    owner_id INT NOT NULL,
+    owner_name VARCHAR(100),
+    owner_email VARCHAR(100),
+    date DATE,
+    notes TEXT,
+    status VARCHAR(20) DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (sitter_id) REFERENCES sitters(id),
+    FOREIGN KEY (owner_id) REFERENCES bookers(id)
 );
+
 
 -- Table: reviews
 CREATE TABLE reviews (

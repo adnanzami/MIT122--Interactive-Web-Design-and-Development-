@@ -1,6 +1,7 @@
 <?php
 require 'config.php';
 
+
 $message_sent = false;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -13,6 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $message_sent = true;
 }
+
+session_start()
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,5 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <button class="findbtn" type="submit">Send Message</button>
   </form>
 </main>
+<?php include 'footer.php'; ?>
 </body>
 </html>

@@ -1,86 +1,107 @@
 <?php
 require 'config.php';
+$message = "";
 
-$message = '';
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $phone = trim($_POST['phone']);
+    $city = trim($_POST['city']);
+    $bio = trim($_POST['bio']);
+    $services = isset($_POST['services']) ? implode(", ", $_POST['services']) : "";
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Sanitize input
-    $name = $_POST['name'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $phone = $_POST['phone'] ?? '';
-    $city = $_POST['city'] ?? '';
-    $services = $_POST['services'] ?? []; // array of selected services
-    $bio = $_POST['bio'] ?? '';
+    // Handle image upload
+    $image_path = "";
+    if (!empty($_FILES['img']['name'])) {
+        $targetDir = "uploads/";
+        if (!is_dir($targetDir)) mkdir($targetDir, 0777, true);
+        $fileName = time() . "_" . basename($_FILES["img"]["name"]);
+        $targetFile = $targetDir . $fileName;
 
-    // Convert services array to comma-separated string
-    $services_str = implode(',', $services);
+        if (move_uploaded_file($_FILES["img"]["tmp_name"], $targetFile)) {
+            $image_path = $targetFile;
+        }
+    }
 
-    // Optional: generate a default password or ask user for one
-    $password = password_hash('default123', PASSWORD_DEFAULT);
-
-    // Insert into database
-    $stmt = $pdo->prepare("INSERT INTO sitters (name, email, phone, city, services, bio, password) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $success = $stmt->execute([$name, $email, $phone, $city, $services_str, $bio, $password]);
-
-    if ($success) {
-        $message = "Your application has been submitted successfully!";
-    } else {
-        $message = "Error: Could not submit your application.";
+    try {
+        $stmt = $pdo->prepare("INSERT INTO sitters (name, email, phone, city, services, bio, password, img)
+                               VALUES (:name, :email, :phone, :city, :services, :bio, :password, :img)");
+        $stmt->execute([
+            ':name' => $name,
+            ':email' => $email,
+            ':phone' => $phone,
+            ':city' => $city,
+            ':services' => $services,
+            ':bio' => $bio,
+            ':password' => $password,
+            ':img' => $image_path
+        ]);
+        $message = "✅ Sitter registered successfully!";
+    } catch (PDOException $e) {
+        if ($e->getCode() == 23000) {
+            $message = "❌ Error: This email is already registered.";
+        } else {
+            $message = "❌ Error: " . $e->getMessage();
+        }
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SafePaws – Become a Sitter</title>
+  <title>Become a Sitter | SafePaws</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-<!-- Main navigation -->
+<header class="site-header">
 <?php include 'header.php'; ?>
+</header>
 
-<main class="container" style="padding:28px 0 60px">
+<main class="container" style="padding:40px 0">
   <h1>Become a Sitter</h1>
-  <p>Fill out the form below to offer your pet care services.</p>
 
-  <?php if($message) echo "<p style='color:green;'>$message</p>"; ?>
+  <?php if ($message): ?>
+    <p class="alert"><?= $message ?></p>
+  <?php endif; ?>
 
-  <form method="post">
-    <label>Full Name</label><br>
-    <input type="text" name="name" required><br><br>
+  <form method="POST" enctype="multipart/form-data" class="form-card">
+    <label>Full Name:</label>
+    <input type="text" name="name" required>
 
-    <label>Email</label><br>
-    <input type="email" name="email" required><br><br>
+    <label>Email:</label>
+    <input type="email" name="email" required>
 
-    <label>Password</label><br>
-    <input type="password" name="password" required><br><br>
+    <label>Phone:</label>
+    <input type="tel" name="phone" required>
 
-    <label>Phone</label><br>
-    <input type="tel" name="phone" required><br><br>
+    <label>City:</label>
+    <input type="text" name="city" required>
 
-    <label>City / Area</label><br>
-    <input type="text" name="city" required><br><br>
+    <label>Services Offered:</label>
+    <select name="services[]" multiple required>
+      <option value="Dog Walking">Dog Walking</option>
+      <option value="Dog Boarding">Dog Boarding</option>
+      <option value="House Sitting">House Sitting</option>
+      <option value="Day Care">Day Care</option>
+      <option value="Drop-in Visits">Drop-in Visits</option>
+    </select>
 
-    <label>Services Offered</label><br>
-    <select multiple name="services[]">
-      <option>Dog Walking</option>
-      <option>Dog Boarding</option>
-      <option>House Sitting</option>
-      <option>Day Care</option>
-      <option>Drop-in Visits</option>
-    </select><br><br>
+    <label>Short Bio:</label>
+    <textarea name="bio" rows="4"></textarea>
 
-    <label>Short Bio</label><br>
-    <textarea name="bio" rows="4"></textarea><br><br>
+    <label>Upload Photo:</label>
+    <input type="file" name="img" accept="image/*">
 
-  <form action="register_sitter.php" method="post" enctype="multipart/form-data">
-  <label>Full Name</label><br>
-  <input type="text" name="name" required><br><br>
+    <label>Create Password:</label>
+    <input type="password" name="password" required>
 
-    <button class="findbtn" type="submit">Submit Application</button>
+    <button type="submit" class="btn">Submit Application</button>
   </form>
 </main>
+<?php include 'footer.php'; ?>
 </body>
 </html>

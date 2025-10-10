@@ -1,5 +1,6 @@
 <?php
 require 'config.php'; // DB connection if needed
+session_start()
 ?>
 
 <!DOCTYPE html>
@@ -50,6 +51,7 @@ require 'config.php'; // DB connection if needed
     <li>📱 Mobile-friendly and easy to use</li>
     </ul>
   </main>
+  <?php include 'footer.php'; ?>
 </body>
 </html>
 

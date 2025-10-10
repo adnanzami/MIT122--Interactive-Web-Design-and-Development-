@@ -1,7 +1,6 @@
 <?php
 require 'config.php';
 $id = $_GET['id'] ?? 0;
-
 $stmt = $pdo->prepare("SELECT * FROM sitters WHERE id=?");
 $stmt->execute([$id]);
 $sitter = $stmt->fetch();
@@ -10,6 +9,7 @@ $stmt2 = $pdo->prepare("SELECT * FROM reviews WHERE sitter_id=? ORDER BY id DESC
 $stmt2->execute([$id]);
 $reviews = $stmt2->fetchAll();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +27,6 @@ $reviews = $stmt2->fetchAll();
 <p>Sitter not found.</p>
 <?php else: ?>
 
-  
 <div class="profile">
   <img src="<?= $sitter['img'] ?>" alt="<?= $sitter['name'] ?>" style="width: 550px">
   <h1><?= $sitter['name'] ?></h1>
@@ -53,8 +52,15 @@ $reviews = $stmt2->fetchAll();
       </div>
     <?php endforeach; ?>
   <?php endif; ?>
+
+  <!-- Add Review Button -->
+  <div style="margin-top:20px;">
+    <a class="btn" href="add_review.php?sitter_id=<?= $sitter['id'] ?>">Add a Review</a>
+  </div>
+
 </div>
 <?php endif; ?>
 </main>
+<?php include 'footer.php'; ?>
 </body>
 </html>
