@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SafePaws – Sitter Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Link to your global CSS file -->
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+  <!-- ===== NAVBAR ===== -->
+  <header class="site-header">
+    <div class="nav container">
+      <div class="brand">🐾 <span>SafePaws</span></div>
+      <nav class="menu">
+        <a href="index.html">Home</a>
+        <a href="about_us.html">About Us</a>
+	<a href="services.html">Services</a>
+        <a href="sitters.html">View Sitters</a>
+        <a href="register_sitter.html">Become a Sitter</a>
+        <a href="contact_us.html">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="container" style="padding:28px 0 60px">
+    <h1>Sitter Login</h1>
+    <p>Enter your email and password to access your bookings.</p>
+
+    <!-- BACKEND-TODO:
+         - Change action to a PHP file (e.g., check_login.php)
+         - Validate sitter credentials in database
+         - Start session and redirect to bookings.html -->
+    <form action="<!-- BACKEND-TODO: check_login.php -->" method="post">
+      <!-- Email field -->
+      <label>Email</label>
+      <input type="email" name="email" placeholder="you@example.com" required>
+
+      <!-- Password field -->
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Enter your password" required>
+
+      <!-- Submit button -->
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Login</button>
+      </div>
+    </form>
+  </main>
+</body>
+</html>
