@@ -42,25 +42,30 @@ C:\wamp64\www\safepaws
 safepaws/
  ├─ css/
  ├─ images/
+ ├─ sql/
+ ├─ uploads/
  ├─ index.php
  ├─ about_us.php
  ├─ add_review.php
  ├─ book.php
  ├─ bookings.php
  ├─ check_login.php
+ ├─ config.php
  ├─ contact_us.php
  ├─ dashboard.php
+ ├─ footer.php
  ├─ header.php
- ├─ logout.php
- ├─ save_booking.php
- ├─ save_sitter.php
+ ├─ index.php
  ├─ login.php
- ├─ services.php
- ├─ sitters.php
+ ├─ logout.php
+ ├─ Readme.md
  ├─ register_owner.php
  ├─ register_sitter.php
+ ├─ save_booking.php
+ ├─ save_sitter.php
+ ├─ services.php
  ├─ sitter_profile.php
- └─ config.php
+ └─ sitters.php
 ```
 
 ---

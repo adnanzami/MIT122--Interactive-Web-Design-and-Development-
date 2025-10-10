@@ -1,6 +1,9 @@
 <?php
 require 'config.php';
-$bookings = $pdo->query("SELECT * FROM bookings ORDER BY date DESC")->fetchAll();
+
+$stmt = $pdo->query("SELECT * FROM bookings ORDER BY id DESC LIMIT 1");
+$latest_booking = $stmt->fetch();
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,19 +21,39 @@ $bookings = $pdo->query("SELECT * FROM bookings ORDER BY date DESC")->fetchAll()
 <h1>My Bookings</h1>
 <div class="table-wrap">
 <table class="table">
-<thead><tr><th>Owner</th><th>Date</th><th>Notes</th><th>Status</th></tr></thead>
-<tbody>
-<?php foreach($bookings as $b): ?>
 <tr>
-<td><?= htmlspecialchars($b['owner_name']) ?></td>
-<td><?= $b['date'] ?></td>
-<td><?= htmlspecialchars($b['notes']) ?></td>
-<td><?= htmlspecialchars($b['status']) ?></td>
-</tr>
-<?php endforeach; ?>
+    <th>Sitter Name</th>
+    <td>
+      <?php
+      $stmt2 = $pdo->prepare("SELECT name FROM sitters WHERE id = ?");
+      $stmt2->execute([$latest_booking['sitter_id']]);
+      $sitter = $stmt2->fetch();
+      echo htmlspecialchars($sitter['name'] ?? 'Unknown');
+      ?>
+    </td>
+  </tr>
+  <tr>
+    <th>Owner Name</th>
+    <td><?= htmlspecialchars($latest_booking['owner_name']) ?></td>
+  </tr>
+  <tr>
+    <th>Date</th>
+    <td><?= htmlspecialchars($latest_booking['date']) ?></td>
+  </tr>
+  <tr>
+    <th>Notes</th>
+    <td><?= nl2br(htmlspecialchars($latest_booking['notes'])) ?></td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td><?= htmlspecialchars($latest_booking['status']) ?></td>
+  </tr>
+
+
 </tbody>
 </table>
 </div>
 </main>
+<?php include 'footer.php'; ?>
 </body>
 </html>

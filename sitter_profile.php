@@ -1,7 +1,6 @@
 <?php
 require 'config.php';
 $id = $_GET['id'] ?? 0;
-
 $stmt = $pdo->prepare("SELECT * FROM sitters WHERE id=?");
 $stmt->execute([$id]);
 $sitter = $stmt->fetch();
@@ -10,6 +9,7 @@ $stmt2 = $pdo->prepare("SELECT * FROM reviews WHERE sitter_id=? ORDER BY id DESC
 $stmt2->execute([$id]);
 $reviews = $stmt2->fetchAll();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,5 +61,6 @@ $reviews = $stmt2->fetchAll();
 </div>
 <?php endif; ?>
 </main>
+<?php include 'footer.php'; ?>
 </body>
 </html>

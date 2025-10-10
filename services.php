@@ -50,6 +50,7 @@
       <p>Quick visits to feed, refresh water, clean up, and spend time with your pet. Ideal for cats or independent pets that need short check-ins.</p>
     </article>
   </main>
+  <?php include 'footer.php'; ?>
 </body>
 </html>
 

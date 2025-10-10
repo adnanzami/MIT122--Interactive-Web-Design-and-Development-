@@ -1,6 +1,7 @@
 <?php
 require 'config.php';
 $sitter_id = $_GET['sitter_id'] ?? 0;
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,5 +29,6 @@ $sitter_id = $_GET['sitter_id'] ?? 0;
   <button class="findbtn" type="submit">Confirm Booking</button>
 </form>
 </main>
+<?php include 'footer.php'; ?>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <?php
 require 'config.php';
+session_start()
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,6 +52,7 @@ require 'config.php';
       ?>
     </div>
   </main>
+  <?php include 'footer.php'; ?>
 </body>
 </html>
 

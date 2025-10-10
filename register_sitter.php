@@ -102,5 +102,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <button type="submit" class="btn">Submit Application</button>
   </form>
 </main>
+<?php include 'footer.php'; ?>
 </body>
 </html>

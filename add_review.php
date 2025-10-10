@@ -1,6 +1,6 @@
 <?php
 require 'config.php';
-session_start();
+
 
 // Ensure user is logged in as a booker
 if(!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'bookers'){
@@ -25,6 +25,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $error = "Failed to add review. Please try again.";
     }
 }
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,6 +58,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <button type="submit" class="findbtn">Submit Review</button>
 </form>
 </main>
-
+<?php include 'footer.php'; ?>
 </body>
 </html>
